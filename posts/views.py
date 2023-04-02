@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.sessions.models import Session
+from django.http import Http404
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,8 +26,10 @@ class UserPosts(generic.ListView):
     template_name = 'posts/user_post_list.html'
 
     def get_queryset(self):
-        queryset = User.objects.prefetch_related('posts').get(username__iexact=self.kwargs.get('username'))
-        self.post.user = get_object_or_404(queryset)
+        try:
+            self.post_user = User.objects.prefetch_related('posts').get(username__iexact=self.kwargs.get('username'))
+        except User.DoesNotExist:
+            raise Http404
         return self.post_user.posts.all()
 
     def get_context_data(self, **kwargs):
@@ -37,6 +40,7 @@ class UserPosts(generic.ListView):
 
 class PostDetail(SelectRelatedMixin, generic.DetailView):
     model = models.Post
+    select_related = ('user', 'group')
 
     def get_queryset(self):
         queryset = super().get_queryset()
