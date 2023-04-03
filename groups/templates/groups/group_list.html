@@ -13,7 +13,7 @@
         </div>
     {% if user.is_authenticated %}
         <a href="{% url 'groups:create' %}" class="btn btn-md btn-fill btn-warning">
-        icon_plus_sign*Create new group
+        <i class="bi bi-plus-circle-fill"></i> Create new group
         </a>
     {% endif %} 
     </div>
@@ -29,12 +29,12 @@
                 {{ group.description_html|safe }}
                 <div class="row">
                     <div class="col-md-4">
-                        icon *{{ group.members.count }}
-                        member{{ group.members.count|pluralize }}
+                        <i class="bi bi-{{ group.members.count }}-circle-fill"></i> members
+{#                        member{{ group.members.count|pluralize }}#}
                     </div>
                     <div class="col-md-4">
-                        icon*{{ group.posts.count }}
-                        post{{ group.posts.count|pluralize }}
+                        <i class="bi bi-{{ group.posts.count }}-circle-fill"></i> posts
+{#                        post{{ group.posts.count|pluralize }}#}
                     </div>
                 </div>
             </div>
