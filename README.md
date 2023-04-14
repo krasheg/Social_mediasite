@@ -36,6 +36,3 @@ Set the following environment variables:
 Run the Django migrations by running `python manage.py migrate`
 
 Start the development server by running `python manage.py runserver`
-### Contributing
-Contributions to this project are welcome! If you find any issues or have any feature suggestions, please open an issue
-on this repository. If you'd like to contribute code, please open a pull request.
